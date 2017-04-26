@@ -1,6 +1,7 @@
 package com.zperkowski;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TextArea;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -49,5 +50,25 @@ public class MainWindowController {
                 textAreaLeft.setText("");
             }
         }
+    }
+
+    /**
+     * Closes the program.
+     */
+    @FXML
+    private void menuFileCloseClicked() {
+        Stage stage = (Stage) textAreaLeft.getScene().getWindow();
+        stage.close();
+    }
+
+    @FXML
+    private void menuHelpAboutClicked() {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("About");
+        alert.setHeaderText("Travelling salesman problem\nApproximation algorithms");
+        alert.setContentText("Author: Zdzisław Perkowski\n" +
+                "Version: 1.0");
+
+        alert.showAndWait();
     }
 }

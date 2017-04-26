@@ -17,12 +17,12 @@
             <items>
                   <MenuItem fx:id="menuFileNew" mnemonicParsing="false" onAction="#menuFileNewClicked" text="New" />
                   <MenuItem fx:id="menuFileOpen" mnemonicParsing="false" onAction="#menuFileOpenClicked" text="Open..." />
-              <MenuItem fx:id="menuFileClose" mnemonicParsing="false" text="Close" />
+              <MenuItem fx:id="menuFileClose" mnemonicParsing="false" onAction="#menuFileCloseClicked" text="Close" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Help">
             <items>
-              <MenuItem fx:id="menuHelpAbout" mnemonicParsing="false" text="About" />
+              <MenuItem fx:id="menuHelpAbout" mnemonicParsing="false" onAction="#menuHelpAboutClicked" text="About" />
             </items>
           </Menu>
         </menus>
