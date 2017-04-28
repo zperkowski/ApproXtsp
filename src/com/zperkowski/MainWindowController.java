@@ -8,8 +8,10 @@ import javafx.stage.Stage;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.List;
 
 public class MainWindowController {
     @FXML
@@ -47,6 +49,34 @@ public class MainWindowController {
             } catch (IOException e) {
                 e.printStackTrace();
                 inputFile = null;
+                textAreaLeft.setText("");
+            }
+        }
+    }
+
+    /**
+     * Saves results to a file
+     */
+    @FXML
+    private void menuFileSaveClicked() {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Save file");
+        fileChooser.setInitialDirectory(
+                new File(System.getProperty("user.home"))
+        );
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("Text (*.txt)", "*.txt")
+        );
+        File outputFile = fileChooser.showSaveDialog(new Stage());
+        if (outputFile != null) {
+            try {
+                PrintWriter printWriter = new PrintWriter(outputFile.getAbsolutePath());
+                for (String line : textAreaRight.getText().split("\\n"))
+                    printWriter.println(line);
+                printWriter.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+                outputFile = null;
                 textAreaLeft.setText("");
             }
         }
