@@ -13,8 +13,8 @@ public class Main extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("mainWindow.fxml"));
         primaryStage.setTitle("ApproXtsp");
         primaryStage.setScene(new Scene(root, 800, 600));
-        primaryStage.setMinHeight(425);
-        primaryStage.setMinWidth(600);
+        primaryStage.setMinHeight(450);
+        primaryStage.setMinWidth(625);
         primaryStage.show();
     }
 
