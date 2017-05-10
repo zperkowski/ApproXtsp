@@ -1,8 +1,7 @@
 package com.zperkowski;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.TextArea;
+import javafx.scene.control.*;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -18,6 +17,10 @@ public class MainWindowController {
     private TextArea textAreaLeft;
     @FXML
     private TextArea textAreaRight;
+    @FXML
+    private Label labelProgress;
+    @FXML
+    private ProgressBar progressBar;
 
     /**
      * Clears programs environment.
@@ -26,6 +29,8 @@ public class MainWindowController {
     private void menuFileNewClicked() {
         textAreaLeft.setText("");
         textAreaRight.setText("");
+        labelProgress.setText("Idle");
+        progressBar.setProgress(0.0);
     }
 
     /**
@@ -100,5 +105,11 @@ public class MainWindowController {
                 "Version: 1.0");
 
         alert.showAndWait();
+    }
+
+    @FXML
+    private void buttonStartClicked() {
+        labelProgress.setText("Finished");
+        progressBar.setProgress(100.0);
     }
 }
