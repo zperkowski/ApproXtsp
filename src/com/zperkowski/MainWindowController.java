@@ -10,7 +10,6 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.List;
 
 public class MainWindowController {
     @FXML
@@ -21,6 +20,10 @@ public class MainWindowController {
     private Label labelProgress;
     @FXML
     private ProgressBar progressBar;
+    @FXML
+    private TextField textFieldQuantity;
+    @FXML
+    private TextField textFieldMaxValue;
 
     /**
      * Clears programs environment.
@@ -111,5 +114,15 @@ public class MainWindowController {
     private void buttonStartClicked() {
         labelProgress.setText("Finished");
         progressBar.setProgress(100.0);
+    }
+
+    @FXML
+    private void buttonGenerateClicked() {
+        if (textFieldQuantity.getText().matches("[0-9]+") &&
+                textFieldMaxValue.getText().matches("[0-9]+")) {
+            Main.mainTspList.generate(Integer.parseInt(textFieldQuantity.getText()),
+                                        Integer.parseInt(textFieldMaxValue.getText()));
+            textAreaLeft.setText(Main.mainTspList.toString().replace(' ', '\t'));
+        }
     }
 }

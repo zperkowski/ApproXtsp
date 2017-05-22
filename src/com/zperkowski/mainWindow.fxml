@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
@@ -50,7 +54,10 @@
          <children>
             <AnchorPane>
                <children>
-                  <ComboBox fx:id="comboBoxAlgo" prefWidth="150.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                  <Button fx:id="buttonGenetare" mnemonicParsing="false" onAction="#buttonGenerateClicked" text="Generate" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                  <TextField fx:id="textFieldQuantity" layoutX="90.0" layoutY="10.0" prefWidth="80.0" promptText="Quantity" AnchorPane.leftAnchor="85.0" AnchorPane.topAnchor="0.0" />
+                  <TextField fx:id="textFieldMaxValue" layoutX="100.0" layoutY="20.0" prefWidth="80.0" promptText="Max value" AnchorPane.leftAnchor="175.0" AnchorPane.topAnchor="0.0" />
+                  <ComboBox fx:id="comboBoxAlgo" prefWidth="150.0" AnchorPane.rightAnchor="60.0" AnchorPane.topAnchor="0.0" />
                   <Button fx:id="buttonStart" mnemonicParsing="false" onAction="#buttonStartClicked" text="Start" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                </children>
                <padding>
