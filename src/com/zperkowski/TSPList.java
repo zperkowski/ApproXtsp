@@ -9,6 +9,10 @@ import java.util.Random;
  */
 class TSPList extends ArrayList<ArrayList<Integer>> {
 
+    public TSPList(int quantity, int maxValue) {
+        this.generate(quantity, maxValue);
+    }
+
     /**
      * Generates an array with random coordinates.
      * The method first clears the list.

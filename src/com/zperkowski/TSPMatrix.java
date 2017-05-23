@@ -1,0 +1,61 @@
+package com.zperkowski;
+
+import java.util.ArrayList;
+
+/**
+ * Created by zperkowski on 23/05/2017.
+ */
+public class TSPMatrix extends ArrayList<ArrayList<Integer>> {
+
+    /**
+     * Creates new matrix and generates distances from given TSPList.
+     * @param tspList A List of coordinates
+     */
+    public TSPMatrix(TSPList tspList) {
+        this.addAll(tspList);
+    }
+
+    @Override
+    public String toString() {
+        if (this.isEmpty())
+            return "";
+
+        StringBuilder sb = new StringBuilder();
+
+        for (int i = 0; i < this.size(); i++) {
+            for (int j = 0; j < this.get(i).size(); j++) {
+                sb.append(this.get(i).get(j).toString() + " ");
+            }
+            // To remove redundant space on the end of every line
+            sb.deleteCharAt(sb.length()-1);
+            sb.append("\n");
+        }
+
+        return sb.toString();
+    }
+
+
+    public boolean addAll(TSPList tspList) {
+        this.clear();
+        if (tspList.size() > 0) {
+            int quantity = tspList.get(0).get(1);
+            for (int i = 0; i < quantity; i++) {
+                    this.add(new ArrayList(quantity));
+                    for (int j = 0; j < quantity; j++)
+                        this.get(i).add(0);
+            }
+        }
+        if (this.size() == tspList.size() - 1) {
+            this.generateDistances(tspList);
+            return true;
+        }
+        return false;
+    }
+
+    public void generateDistances(TSPList tspList) {
+        if (this.size() != tspList.size() - 1) {
+            this.clear();
+            this.addAll(tspList);
+        }
+    }
+}

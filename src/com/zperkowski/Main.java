@@ -8,7 +8,7 @@ import javafx.stage.Stage;
 
 public class Main extends Application {
 
-    static TSPList mainTspList = new TSPList();
+    static TSPList mainTspList = new TSPList(0, 0);
 
     @Override
     public void start(Stage primaryStage) throws Exception{
