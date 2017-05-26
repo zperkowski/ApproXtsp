@@ -2,6 +2,7 @@ package com.zperkowski;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Random;
 
 /**
@@ -22,12 +23,23 @@ class TSPList extends ArrayList<ArrayList<Integer>> {
     void generate(int quantity, int maxValue) {
         this.clear();
         Random random = new Random();
+        ArrayList usedCoordinates = new ArrayList<Integer>();
+        int x, y;
 
         if (quantity > 0) {
             this.add(new ArrayList<>(Arrays.asList(0, quantity)));
 
             for (int i = 1; i < quantity + 1; i++) {
-                this.add(new ArrayList<>(Arrays.asList(i, random.nextInt(maxValue), random.nextInt(maxValue))));
+                do {
+                    x = random.nextInt(maxValue);
+                    y = random.nextInt(maxValue);
+                    // Repeat when the sublist is on a even position.
+                    // First the x is added to the list and then y. Both have to belong to the same point.
+                } while (Collections.indexOfSubList(usedCoordinates, Arrays.asList(x, y)) % 2 == 0
+                        && Collections.indexOfSubList(usedCoordinates, Arrays.asList(x, y)) > 0);
+                usedCoordinates.add(x);
+                usedCoordinates.add(y);
+                this.add(new ArrayList<>(Arrays.asList(i, x, y)));
             }
         }
     }
