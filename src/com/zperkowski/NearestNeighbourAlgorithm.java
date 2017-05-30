@@ -65,6 +65,8 @@ public class NearestNeighbourAlgorithm {
         }
         sb.deleteCharAt(sb.length()-1);
 
+        sb.append("\n" + this.distance + "\n");
+
         return sb.toString();
     }
 }

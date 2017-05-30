@@ -1,5 +1,6 @@
 package com.zperkowski;
 
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.stage.FileChooser;
@@ -24,6 +25,17 @@ public class MainWindowController {
     private TextField textFieldQuantity;
     @FXML
     private TextField textFieldMaxValue;
+    @FXML
+    private ComboBox<String> comboBoxAlgo;
+
+    @FXML
+    public void initialize() {
+        // Sets the list of algorithms
+        comboBoxAlgo.setItems(FXCollections.observableArrayList(
+                "Nearest Neighbour"
+        ));
+        comboBoxAlgo.getSelectionModel().selectFirst();
+    }
 
     /**
      * Clears programs environment.
@@ -112,6 +124,14 @@ public class MainWindowController {
 
     @FXML
     private void buttonStartClicked() {
+        switch (comboBoxAlgo.getSelectionModel().getSelectedItem()) {
+            case "Nearest Neighbour":
+                startNearestNeighbour();
+                break;
+            default:
+                break;
+        }
+
         labelProgress.setText("Finished");
         progressBar.setProgress(100.0);
     }
@@ -124,5 +144,13 @@ public class MainWindowController {
                                         Integer.parseInt(textFieldMaxValue.getText()));
             textAreaLeft.setText(Main.mainTspList.toString().replace(' ', '\t'));
         }
+    }
+
+    private void startNearestNeighbour() {
+        NearestNeighbourAlgorithm nnAlgorithm = new NearestNeighbourAlgorithm();
+        nnAlgorithm.addCities(Main.mainTspList);
+        nnAlgorithm.calculateTour();
+        textAreaRight.setText("Nearest Neighbour\n"
+            + nnAlgorithm.toString());
     }
 }
