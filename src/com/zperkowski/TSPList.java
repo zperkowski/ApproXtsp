@@ -8,7 +8,7 @@ import java.util.Random;
 /**
  * Created by zperkowski on 17/05/2017.
  */
-class TSPList extends ArrayList<ArrayList<Integer>> {
+public class TSPList extends ArrayList<ArrayList<Integer>> {
 
     public TSPList(int quantity, int maxValue) {
         this.generate(quantity, maxValue);
