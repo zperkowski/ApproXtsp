@@ -1,5 +1,7 @@
 package com.zperkowski.tspAlgorithms;
 
+import com.zperkowski.TSPMatrix;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,12 +23,20 @@ public class Tree<T> {
         this.parent = parent;
     }
 
+    /**
+     * Creates a tree based on a adjacency matrix.
+     * Starts from vertex 0.
+     * @param matrix The adjacency matrix.
+     */
+    public Tree(TSPMatrix matrix) {
+        // TODO
+    }
+
     public List<Tree<T>> getChildren() {
         return children;
     }
 
     public void setParent(Tree<T> parent) {
-        parent.addChild(this);
         this.parent = parent;
     }
 
@@ -60,7 +70,52 @@ public class Tree<T> {
             return false;
     }
 
+    /**
+     * Looks for a given data in every child.
+     * @param data Requested data.
+     * @return Returns the found child. If doesn't exist a vertex with given data the returns null.
+     */
+    public Tree findInChildren(T data) {
+        Tree foundChild = null;
+        for (Tree child:
+             this.children) {
+            if (child.data == data) {
+                foundChild = child;
+                break;
+            }
+        }
+        if (foundChild == null)
+            for (Tree child:
+                    this.children) {
+                foundChild = child.findInChildren(data);
+            }
+        return foundChild;
+    }
+
+    /**
+     * Finds the root of the current vertex.
+     * @return Returns the root.
+     */
+    public Tree getRoot() {
+        Tree root = this;
+        while(!root.isRoot()) {
+            root = root.parent;
+        }
+        return root;
+    }
+
     public void removeParent() {
         this.parent = null;
+    }
+
+    /**
+     * The method walks through the tree in pre order.
+     * @param tree Given tree to walk.
+     * @return Returns a list with vertexes in pre order.
+     */
+    public ArrayList getPreOrder (Tree tree) {
+        ArrayList preOrder = new ArrayList();
+        // TODO
+        return preOrder;
     }
 }
