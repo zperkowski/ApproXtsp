@@ -110,12 +110,16 @@ public class Tree<T> {
 
     /**
      * The method walks through the tree in pre order.
-     * @param tree Given tree to walk.
      * @return Returns a list with vertexes in pre order.
      */
-    public ArrayList getPreOrder (Tree tree) {
+    public ArrayList getPreOrder() {
         ArrayList preOrder = new ArrayList();
-        // TODO
+        preOrder.add(this.data);
+        for (Tree child:
+             this.children) {
+            preOrder.addAll(child.getPreOrder());
+
+        }
         return preOrder;
     }
 }
