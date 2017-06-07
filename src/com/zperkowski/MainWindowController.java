@@ -33,7 +33,8 @@ public class MainWindowController {
     public void initialize() {
         // Sets the list of algorithms
         comboBoxAlgo.setItems(FXCollections.observableArrayList(
-                "Nearest Neighbour"
+                "Nearest Neighbour",
+                "Approx Tsp Tour"
         ));
         comboBoxAlgo.getSelectionModel().selectFirst();
     }
@@ -125,13 +126,17 @@ public class MainWindowController {
 
     @FXML
     private void buttonStartClicked() {
-        switch (comboBoxAlgo.getSelectionModel().getSelectedItem()) {
-            case "Nearest Neighbour":
-                startNearestNeighbour();
-                break;
-            default:
-                break;
-        }
+        if (Main.mainTspList.size() > 0)
+            switch (comboBoxAlgo.getSelectionModel().getSelectedItem()) {
+                case "Nearest Neighbour":
+                    startNearestNeighbour();
+                    break;
+                case "Approx Tsp Tour":
+                    startApproxTspTour();
+                    break;
+                default:
+                    break;
+            }
 
         labelProgress.setText("Finished");
         progressBar.setProgress(100.0);
@@ -153,5 +158,13 @@ public class MainWindowController {
         nnAlgorithm.calculateTour();
         textAreaRight.setText("Nearest Neighbour\n"
             + nnAlgorithm.toString());
+    }
+
+    private void startApproxTspTour() {
+        ApproxTspTourAlgorithm tourAlgorithm = new ApproxTspTourAlgorithm();
+        tourAlgorithm.addCities(Main.mainTspList);
+        tourAlgorithm.calculateTour();
+        textAreaRight.setText("Approx Tsp Tour\n"
+                + tourAlgorithm.toString());
     }
 }
