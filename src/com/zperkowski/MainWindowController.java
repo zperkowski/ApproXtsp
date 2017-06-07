@@ -67,6 +67,8 @@ public class MainWindowController {
         if (inputFile != null) {
             try {
                 textAreaLeft.setText(new String(Files.readAllBytes(Paths.get(inputFile.getAbsolutePath()))));
+                Main.mainTspList.setFromFile(textAreaLeft.getText());
+                System.out.println(Main.mainTspList.toString());
             } catch (IOException e) {
                 e.printStackTrace();
                 inputFile = null;
