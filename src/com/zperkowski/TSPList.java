@@ -44,6 +44,20 @@ public class TSPList extends ArrayList<ArrayList<Integer>> {
         }
     }
 
+    public void setFromFile(String input) {
+        String[] elements;
+        ArrayList arrayList;
+        for (String line : input.split("\\n")) {
+            elements = line.split("\\W+");
+            arrayList = new ArrayList(elements.length);
+            for (String element:
+                 elements) {
+                arrayList.add(Integer.parseInt(element));
+            }
+            this.add(arrayList);
+        }
+    }
+
     @Override
     public String toString() {
         if (this.isEmpty())
