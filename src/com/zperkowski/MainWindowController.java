@@ -69,11 +69,11 @@ public class MainWindowController {
             try {
                 textAreaLeft.setText(new String(Files.readAllBytes(Paths.get(inputFile.getAbsolutePath()))));
                 Main.mainTspList.setFromFile(textAreaLeft.getText());
-                System.out.println(Main.mainTspList.toString());
             } catch (IOException e) {
                 e.printStackTrace();
                 inputFile = null;
                 textAreaLeft.setText("");
+                Main.mainTspList = null;
             }
         }
     }
