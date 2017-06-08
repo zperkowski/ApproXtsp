@@ -3,6 +3,7 @@ package com.zperkowski.tspAlgorithms;
 import com.zperkowski.TSPMatrix;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -90,6 +91,8 @@ public class Tree<T> {
             for (Tree child:
                     this.children) {
                 foundChild = child.findInChildren(data);
+                if (foundChild != null)
+                    break;
             }
         return foundChild;
     }
@@ -114,8 +117,8 @@ public class Tree<T> {
      * The method walks through the tree in pre order.
      * @return Returns a list with vertexes in pre order.
      */
-    public ArrayList getPreOrder() {
-        ArrayList preOrder = new ArrayList();
+    public LinkedList getPreOrder() {
+        LinkedList preOrder = new LinkedList();
         preOrder.add(this.data);
         for (Tree child:
              this.children) {

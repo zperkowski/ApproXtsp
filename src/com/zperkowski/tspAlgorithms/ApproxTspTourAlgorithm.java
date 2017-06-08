@@ -4,18 +4,24 @@ import com.zperkowski.TSPMatrix;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedList;
 
 /**
  * Created by zperkowski on 31/05/2017.
  */
 public class ApproxTspTourAlgorithm extends TspAlgorithm {
-    Tree MinimalSpanningTree;
+    Tree minimalSpanningTree;
 
     @Override
     public void calculateTour() {
+        distance = 0;
         TSPMatrix matrix = new TSPMatrix(tspList);
         matrix.generateDistances();
-        MinimalSpanningTree = calculateMinimalSpanningTree(matrix);
+        minimalSpanningTree = calculateMinimalSpanningTree(matrix);
+        tourList = minimalSpanningTree.getPreOrder();
+        for (int i = 0; i < tourList.size() - 1; i++) {
+            distance += matrix.get(tourList.get(i)).get(tourList.get(i+1));
+        }
     }
 
     private Tree calculateMinimalSpanningTree(TSPMatrix matrix) {
@@ -37,7 +43,7 @@ public class ApproxTspTourAlgorithm extends TspAlgorithm {
             closestVertexTo = (Integer) availableVertexes.get(0);
 
             for (int vertex :
-                    (ArrayList<Integer>) msTree.getPreOrder()) {
+                    (LinkedList<Integer>) msTree.getPreOrder()) {
                 for (int neighbour :
                         (ArrayList<Integer>) availableVertexes)
                     if (vertex != neighbour)
@@ -48,12 +54,10 @@ public class ApproxTspTourAlgorithm extends TspAlgorithm {
                         }
             }
             weight = minCurrentWeight;
-            System.out.println(closestVertexFrom + " " + closestVertexTo);
             Tree from = msTree.findInChildren(closestVertexFrom);
             from.addChild(closestVertexTo);
             availableVertexes.removeAll(Arrays.asList(closestVertexTo));
         }
-        // TODO: Sometimes Tree from is null.
         return msTree;
     }
 }
