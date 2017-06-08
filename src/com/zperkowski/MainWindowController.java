@@ -33,6 +33,7 @@ public class MainWindowController {
     public void initialize() {
         // Sets the list of algorithms
         comboBoxAlgo.setItems(FXCollections.observableArrayList(
+                "All",
                 "Nearest Neighbour",
                 "Approx Tsp Tour"
         ));
@@ -130,6 +131,10 @@ public class MainWindowController {
     private void buttonStartClicked() {
         if (Main.mainTspList.size() > 0)
             switch (comboBoxAlgo.getSelectionModel().getSelectedItem()) {
+                case "All":
+                    startNearestNeighbour();
+                    startApproxTspTour();
+                    break;
                 case "Nearest Neighbour":
                     startNearestNeighbour();
                     break;
@@ -151,6 +156,7 @@ public class MainWindowController {
             Main.mainTspList.generate(Integer.parseInt(textFieldQuantity.getText()),
                                         Integer.parseInt(textFieldMaxValue.getText()));
             textAreaLeft.setText(Main.mainTspList.toString().replace(' ', '\t'));
+            textAreaRight.clear();
         }
     }
 
@@ -158,15 +164,17 @@ public class MainWindowController {
         NearestNeighbourAlgorithm nnAlgorithm = new NearestNeighbourAlgorithm();
         nnAlgorithm.addCities(Main.mainTspList);
         nnAlgorithm.calculateTour();
-        textAreaRight.setText("Nearest Neighbour\n"
-            + nnAlgorithm.toString());
+        textAreaRight.setText(textAreaRight.getText()
+                + "Nearest Neighbour\n"
+                + nnAlgorithm.toString());
     }
 
     private void startApproxTspTour() {
         ApproxTspTourAlgorithm tourAlgorithm = new ApproxTspTourAlgorithm();
         tourAlgorithm.addCities(Main.mainTspList);
         tourAlgorithm.calculateTour();
-        textAreaRight.setText("Approx Tsp Tour\n"
+        textAreaRight.setText(textAreaRight.getText()
+                + "Approx Tsp Tour\n"
                 + tourAlgorithm.toString());
     }
 }
