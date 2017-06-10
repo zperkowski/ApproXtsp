@@ -12,7 +12,7 @@ public class NearestNeighbourAlgorithm extends TspAlgorithm {
             TSPMatrix matrix = new TSPMatrix(tspList);
             matrix.generateDistances();
             double minCurrentDistance = matrix.get(0).get(1);
-            int currentVertex;
+            int currentVertex = 0;
             int closestCurrentNeighbour = 1;
             tourList.add(0);
             while (tourList.size() < matrix.size()) {
@@ -36,6 +36,8 @@ public class NearestNeighbourAlgorithm extends TspAlgorithm {
                 tourList.add(closestCurrentNeighbour);
                 distance += minCurrentDistance;
             }
+            tourList.add(0);
+            distance += matrix.get(currentVertex).get(0);
         }
     }
 }

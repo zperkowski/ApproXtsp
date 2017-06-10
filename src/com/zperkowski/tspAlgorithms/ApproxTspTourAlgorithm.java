@@ -19,6 +19,7 @@ public class ApproxTspTourAlgorithm extends TspAlgorithm {
         matrix.generateDistances();
         minimalSpanningTree = calculateMinimalSpanningTree(matrix);
         tourList = minimalSpanningTree.getPreOrder();
+        tourList.add(0);
         for (int i = 0; i < tourList.size() - 1; i++) {
             distance += matrix.get(tourList.get(i)).get(tourList.get(i+1));
         }

@@ -56,6 +56,7 @@ public class MainWindowController {
      */
     @FXML
     private void menuFileOpenClicked() {
+        Main.mainTspList.clear();
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Open input file");
         fileChooser.setInitialDirectory(
