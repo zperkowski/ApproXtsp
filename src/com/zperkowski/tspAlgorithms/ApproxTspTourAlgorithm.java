@@ -25,7 +25,7 @@ public class ApproxTspTourAlgorithm extends TspAlgorithm {
         }
     }
 
-    private Tree calculateMinimalSpanningTree(TSPMatrix matrix) {
+    public Tree calculateMinimalSpanningTree(TSPMatrix matrix) {
         Tree msTree = new Tree(0); // Starting from 0
         double weight = 0;
         double minCurrentWeight = 0;
@@ -38,22 +38,22 @@ public class ApproxTspTourAlgorithm extends TspAlgorithm {
         availableVertexes.remove(0); // Starting from 0
 
         while (availableVertexes.size() > 0) {
-            minCurrentWeight = weight +
-                    matrix.get(0).get((Integer) availableVertexes.get(0));
-            closestVertexFrom = 0;
-            closestVertexTo = (Integer) availableVertexes.get(0);
-
             for (int vertex :
                     (LinkedList<Integer>) msTree.getPreOrder()) {
                 for (int neighbour :
                         (ArrayList<Integer>) availableVertexes)
-                    if (vertex != neighbour)
-                        if (minCurrentWeight > weight + matrix.get(vertex).get(neighbour)) {
+                    if (vertex != neighbour && matrix.get(vertex).get(neighbour) != 0)
+                        if (minCurrentWeight > weight + matrix.get(vertex).get(neighbour)
+                                || minCurrentWeight == weight) {
                             minCurrentWeight = weight + matrix.get(vertex).get(neighbour);
                             closestVertexFrom = vertex;
                             closestVertexTo = neighbour;
                         }
             }
+
+            if (minCurrentWeight == weight)
+                throw new ArithmeticException("Isolated vertex");
+
             weight = minCurrentWeight;
             Tree from = msTree.findInChildren(closestVertexFrom);
             from.addChild(closestVertexTo);

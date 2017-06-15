@@ -16,6 +16,18 @@ public class TSPMatrix extends ArrayList<ArrayList<Double>> {
         this.setTSPList(tspList);
     }
 
+    /**
+     * Constructor creates empty matrix. To add values:
+     * TSPMatrix tspMatrix = new TSPMatrix(2);
+     * tspMatrix.get(0).set(1, 10.0);
+     * tspMatrix.get(1).set(0, 10.0);
+     * @param size Size of matrix
+     */
+    public TSPMatrix(int size){
+        list = new TSPList(size, 1);
+        this.generateSize();
+    }
+
     public void setTSPList(TSPList tspList) {
         list = tspList;
     }
