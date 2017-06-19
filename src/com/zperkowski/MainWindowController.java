@@ -131,15 +131,21 @@ public class MainWindowController {
     @FXML
     private void buttonStartClicked() {
         if (Main.mainTspList.size() > 0)
+            progressBar.setProgress(0);
             switch (comboBoxAlgo.getSelectionModel().getSelectedItem()) {
                 case "All":
+                    labelProgress.setText("Nearest Neighbour is running");
                     startNearestNeighbour();
+                    progressBar.setProgress(0.5);
+                    labelProgress.setText("Approx Tsp Tour is running");
                     startApproxTspTour();
                     break;
                 case "Nearest Neighbour":
+                    labelProgress.setText("Nearest Neighbour is running");
                     startNearestNeighbour();
                     break;
                 case "Approx Tsp Tour":
+                    labelProgress.setText("Approx Tsp Tour is running");
                     startApproxTspTour();
                     break;
                 default:
@@ -154,8 +160,12 @@ public class MainWindowController {
     private void buttonGenerateClicked() {
         if (textFieldQuantity.getText().matches("[0-9]+") &&
                 textFieldMaxValue.getText().matches("[0-9]+")) {
+            progressBar.setProgress(0);
+            labelProgress.setText("Generating coordinates...");
             Main.mainTspList.generate(Integer.parseInt(textFieldQuantity.getText()),
                                         Integer.parseInt(textFieldMaxValue.getText()));
+            progressBar.setProgress(1);
+            labelProgress.setText("Coordinates generated");
             textAreaLeft.setText(Main.mainTspList.toString().replace(' ', '\t'));
             textAreaRight.clear();
         }
