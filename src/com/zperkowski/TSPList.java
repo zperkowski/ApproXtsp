@@ -23,7 +23,7 @@ public class TSPList extends ArrayList<ArrayList<Integer>> {
     void generate(int quantity, int maxValue) {
         this.clear();
         Random random = new Random();
-        ArrayList usedCoordinates = new ArrayList<Integer>();
+        ArrayList usedCoordinates = new ArrayList<ArrayList<Integer>>();
         int x, y;
 
         if (quantity > 0) {
@@ -33,12 +33,10 @@ public class TSPList extends ArrayList<ArrayList<Integer>> {
                 do {
                     x = random.nextInt(maxValue);
                     y = random.nextInt(maxValue);
-                    // Repeat when the sublist is on a even position.
-                    // First the x is added to the list and then y. Both have to belong to the same point.
-                } while (Collections.indexOfSubList(usedCoordinates, Arrays.asList(x, y)) % 2 == 0
-                        && Collections.indexOfSubList(usedCoordinates, Arrays.asList(x, y)) > 0);
-                usedCoordinates.add(x);
-                usedCoordinates.add(y);
+                    // TODO: Remove endless loop. It appears when all possibilities are used.
+                    // Eg. Quantity 5+ and max value 2.
+                } while (Collections.indexOfSubList(usedCoordinates, Arrays.asList(Arrays.asList(x, y))) >= 0);
+                usedCoordinates.add(Arrays.asList(x, y));
                 this.add(new ArrayList<>(Arrays.asList(i, x, y)));
             }
         }
