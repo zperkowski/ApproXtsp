@@ -77,12 +77,12 @@ public class Tree<T> {
      * @return Returns the found child. If doesn't exist a vertex with given data the returns null.
      */
     public Tree findInChildren(T data) {
-        if (this.getData() == data)
+        if (this.getData().equals(data))
             return this;
         Tree foundChild = null;
         for (Tree child:
              this.children) {
-            if (child.data == data) {
+            if (child.data.equals(data)) {
                 foundChild = child;
                 break;
             }
