@@ -12,30 +12,53 @@ import java.util.LinkedList;
 public class ApproxTspTourAlgorithm extends TspAlgorithm {
     Tree minimalSpanningTree;
 
+
+    /**
+     * Calculates the shortest tour. Starts from the 1st vertex.
+     */
     @Override
     public void calculateTour() {
+        calculateTour(0);
+    }
+
+    public void calculateTour(int startVertex) {
         distance = 0;
         TSPMatrix matrix = new TSPMatrix(tspList);
         matrix.generateDistances();
-        minimalSpanningTree = calculateMinimalSpanningTree(matrix);
+        minimalSpanningTree = calculateMinimalSpanningTree(matrix, startVertex);
         tourList = minimalSpanningTree.getPreOrder();
-        tourList.add(0);
+        tourList.add(startVertex);
         for (int i = 0; i < tourList.size() - 1; i++) {
             distance += matrix.get(tourList.get(i)).get(tourList.get(i+1));
         }
     }
 
+    /**
+     * Calculates a MST. Starts from the 1st vertex.
+     * @param matrix A adjacency matrix.
+     * @return Returns the Minimal Spanning Tree.
+     */
     public Tree calculateMinimalSpanningTree(TSPMatrix matrix) {
-        Tree msTree = new Tree(0); // Starting from 0
+        return calculateMinimalSpanningTree(matrix, 0);
+    }
+
+    public Tree calculateMinimalSpanningTree(TSPMatrix matrix, int startVertex) {
+        Tree msTree = new Tree(startVertex);
         double weight = 0;
         double minCurrentWeight = 0;
-        int closestVertexFrom = 0;
-        int closestVertexTo = 1;
+        int closestVertexFrom = startVertex;
+        int closestVertexTo;
+
+        if (startVertex < matrix.size())
+            closestVertexTo = startVertex + 1;
+        else
+            closestVertexTo = startVertex - 1;
+
 
         ArrayList availableVertexes = new ArrayList(0);
         for (int i = 0; i < matrix.size(); i++)
             availableVertexes.add(i);
-        availableVertexes.remove(0); // Starting from 0
+        availableVertexes.remove(startVertex);
 
         while (availableVertexes.size() > 0) {
             for (int vertex :
