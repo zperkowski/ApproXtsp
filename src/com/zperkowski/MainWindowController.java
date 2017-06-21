@@ -35,7 +35,8 @@ public class MainWindowController {
         comboBoxAlgo.setItems(FXCollections.observableArrayList(
                 "All",
                 "Nearest Neighbour",
-                "Approx Tsp Tour"
+                "Approx Tsp Tour",
+                "Multi Approx Tsp Tour"
         ));
         comboBoxAlgo.getSelectionModel().selectFirst();
     }
@@ -136,9 +137,12 @@ public class MainWindowController {
                 case "All":
                     labelProgress.setText("Nearest Neighbour is running");
                     startNearestNeighbour();
-                    progressBar.setProgress(0.5);
+                    progressBar.setProgress(0.3);
                     labelProgress.setText("Approx Tsp Tour is running");
                     startApproxTspTour();
+                    progressBar.setProgress(0.6);
+                    labelProgress.setText("Multi Approx Tsp Tour is running");
+                    startMultiApproxTspTour();
                     break;
                 case "Nearest Neighbour":
                     labelProgress.setText("Nearest Neighbour is running");
@@ -147,6 +151,10 @@ public class MainWindowController {
                 case "Approx Tsp Tour":
                     labelProgress.setText("Approx Tsp Tour is running");
                     startApproxTspTour();
+                    break;
+                case "Multi Approx Tsp Tour":
+                    labelProgress.setText("Multi Approx Tsp Tour is running");
+                    startMultiApproxTspTour();
                     break;
                 default:
                     break;
@@ -186,6 +194,15 @@ public class MainWindowController {
         tourAlgorithm.calculateTour();
         textAreaRight.setText(textAreaRight.getText()
                 + "Approx Tsp Tour\n"
+                + tourAlgorithm.toString());
+    }
+
+    private void startMultiApproxTspTour() {
+        ApproxTspTourAlgorithm tourAlgorithm = new ApproxTspTourAlgorithm();
+        tourAlgorithm.addCities(Main.mainTspList);
+        tourAlgorithm.calculateAllTours();
+        textAreaRight.setText(textAreaRight.getText()
+                + "Multi Approx Tsp Tour - Calculates MST starting from every vertex\n"
                 + tourAlgorithm.toString());
     }
 }

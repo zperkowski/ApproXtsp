@@ -12,6 +12,19 @@ import java.util.LinkedList;
 public class ApproxTspTourAlgorithm extends TspAlgorithm {
     Tree minimalSpanningTree;
 
+    public void calculateAllTours() {
+        ApproxTspTourAlgorithm currentATT = new ApproxTspTourAlgorithm();
+        currentATT.addCities(tspList);
+
+        for (int i = 0; i < tspList.size() - 1; i++) {
+            currentATT.calculateTour(i);
+            if (currentATT.distance < this.distance
+                    || this.distance == 0) {
+                this.distance = currentATT.distance;
+                this.tourList = currentATT.tourList;
+            }
+        }
+    }
 
     /**
      * Calculates the shortest tour. Starts from the 1st vertex.
