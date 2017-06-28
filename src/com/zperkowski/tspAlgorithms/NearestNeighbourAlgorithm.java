@@ -11,24 +11,19 @@ public class NearestNeighbourAlgorithm extends TspAlgorithm {
         if (tspList != null) {
             TSPMatrix matrix = new TSPMatrix(tspList);
             matrix.generateDistances();
-            double minCurrentDistance = matrix.get(0).get(1);
+            distance = 0;
+            double minCurrentDistance = 0;
             int currentVertex = 0;
             int closestCurrentNeighbour = 1;
             tourList.add(0);
             while (tourList.size() < matrix.size()) {
                 currentVertex = tourList.getLast();
-
-                // Looks for new value of minCurrentDistance
-                for (int i = matrix.size()-1; i > 0; i--)
-                    if (!tourList.contains(i) && currentVertex != i) {
-                        minCurrentDistance = matrix.get(currentVertex).get(i);
-                        closestCurrentNeighbour = i;
-                        break;
-                    }
                 // Looks for the true minCurrentDistance
+                minCurrentDistance = 0;
                 for (int neighbour = 0; neighbour < matrix.size(); neighbour++) {
                     if (!tourList.contains(neighbour) && currentVertex != neighbour)
-                        if (matrix.get(currentVertex).get(neighbour) < minCurrentDistance) {
+                        if (matrix.get(currentVertex).get(neighbour) < minCurrentDistance
+                                || minCurrentDistance == 0) {
                             minCurrentDistance = matrix.get(currentVertex).get(neighbour);
                             closestCurrentNeighbour = neighbour;
                         }
