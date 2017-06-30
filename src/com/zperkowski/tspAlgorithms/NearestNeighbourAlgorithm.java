@@ -31,8 +31,8 @@ public class NearestNeighbourAlgorithm extends TspAlgorithm {
                 tourList.add(closestCurrentNeighbour);
                 distance += minCurrentDistance;
             }
+            distance += matrix.get(tourList.getLast()).get(0);
             tourList.add(0);
-            distance += matrix.get(currentVertex).get(0);
         }
     }
 }
