@@ -15,9 +15,12 @@ public class ApproxTspTourAlgorithm extends TspAlgorithm {
     public void calculateAllTours() {
         ApproxTspTourAlgorithm currentATT = new ApproxTspTourAlgorithm();
         currentATT.addCities(tspList);
+        TSPMatrix matrix = new TSPMatrix(tspList);
+        matrix.generateDistances();
 
         for (int i = 0; i < tspList.size() - 1; i++) {
-            currentATT.calculateTour(i);
+            System.out.print(i + " ");
+            currentATT.calculateTour(i, matrix);
             if (currentATT.distance < this.distance
                     || this.distance == 0) {
                 this.distance = currentATT.distance;
@@ -31,13 +34,17 @@ public class ApproxTspTourAlgorithm extends TspAlgorithm {
      */
     @Override
     public void calculateTour() {
-        calculateTour(0);
-    }
-
-    public void calculateTour(int startVertex) {
-        distance = 0;
         TSPMatrix matrix = new TSPMatrix(tspList);
         matrix.generateDistances();
+        calculateTour(0, matrix);
+    }
+
+    public void calculateTour(TSPMatrix matrix) {
+        calculateTour(0, matrix);
+    }
+
+    public void calculateTour(int startVertex, TSPMatrix matrix) {
+        distance = 0;
         minimalSpanningTree = calculateMinimalSpanningTree(matrix, startVertex);
         tourList = minimalSpanningTree.getPreOrder();
         tourList.add(startVertex);
